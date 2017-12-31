@@ -1,0 +1,24 @@
+CODE BASE
+
+$ cd codebase
+$ javac *.java
+$ rmic -v1.1 Factory
+$ rmic -v1.1 InterfaceImpl
+
+pour qu'il soit acessible avec apache : ($ sudo apt install apache2)
+
+$ cd ..
+$ sudo cp -r codebase /var/www/html
+
+SERVER
+
+$ javac DynamicServer.java
+$ java -Djava.security.policy=server.security.policy -Djava.rmi.server.codebase=http://localhost/codebase/ DynamicServer
+
+CLIENT
+
+$ javac DynamicClient.java
+$ java -Djava.security.policy=server.security.policy -Djava.rmi.server.codebase=http://localhost/codebase/ DynamicClient
+
+
+

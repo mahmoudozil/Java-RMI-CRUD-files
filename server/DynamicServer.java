@@ -15,10 +15,10 @@ try {
 String url = p.getProperty("java.rmi.server.codebase");
  Class ClasseFactory = RMIClassLoader.loadClass(url,"Factory");
   registry.rebind("Factory",(Remote)ClasseFactory.newInstance());
-  System.out.println("attente des invocations des clients ");
+  System.out.println("Waiting for Clients !! ");
    }
     catch (Exception e) {
-            System.out.println("Erreur de liaison de l'objet Fabrique");
+            System.out.println("Error while linking the Factory Object");
             System.out.println(e.toString());
 }
 

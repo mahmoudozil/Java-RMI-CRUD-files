@@ -24,26 +24,7 @@ public class InterfaceImpl extends UnicastRemoteObject implements Interface
 
     public String menuPrincipal() throws RemoteException
     {
-       	return("1: FST\n 2: ENIT\n 3: ISI\n 4: INSAT\n 5: ENSIT\n 6: ENSI\n 7: Quit\n");
-    }
-
-    public boolean sendChoice(int x, int max) throws RemoteException
-    {
-    	if(x < 1 || x > max) 
-    	{
-    		return(false);
-    		
-    	}
-	    else 
-	    {
-	    	return(true);
-	    }
-
-    }
-
-    public String validChoice() throws RemoteException
-    {
-    	return("choose a valid choice from the menu");
+       	return(" 1: FST\n 2: ENIT\n 3: ISI\n 4: INSAT\n 5: ENSIT\n 6: ENSI\n 7: Quit\n");
     }
 
     public String menuSec(int y) throws RemoteException
@@ -70,7 +51,7 @@ public class InterfaceImpl extends UnicastRemoteObject implements Interface
 			output.append(e+"\n");
 			output.close();
 			
-    		return(e + " added Successfully");
+    		return(e + " \nAdded Successfully");
 		} 
 		catch (Exception e1) 
 		{
@@ -90,18 +71,23 @@ public class InterfaceImpl extends UnicastRemoteObject implements Interface
 			BufferedReader reader = new BufferedReader(new FileReader(inputFile));
 			BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
 
-			String currentLine;
+			String currentLine;	
+			boolean test = false;
 
 			while((currentLine = reader.readLine()) != null) {
 			    // trim newline when comparing with lineToRemove
 			    String trimmedLine = currentLine.trim();
-			    if(trimmedLine.contains(String.valueOf(e))) continue;
+			    if(trimmedLine.contains(String.valueOf(e))) 
+			    {
+			    	test = true;
+			    	continue;
+			    }
 			    writer.write(currentLine + System.getProperty("line.separator"));
 			}
 			writer.close(); 
 			reader.close(); 
 			boolean successful = tempFile.renameTo(inputFile);
-			if(successful) 
+			if(test) 
 				return(e + " Deleted Successfully");
 			else
 				return(e + " does not exist");
@@ -167,7 +153,7 @@ public String Modify(Employe e , int x) throws RemoteException
 			{
 			    // trim newline when comparing with lineToRemove
 			    String trimmedLine = currentLine.trim();
-			    if(trimmedLine.contains(String.valueOf(e.cin))) continue;
+			    if(trimmedLine.contains(String.valueOf(e.cin)))
 			    {
 			    	currentLine = e.toString();
 			    	test = true;
@@ -181,7 +167,7 @@ public String Modify(Employe e , int x) throws RemoteException
 			
 			if(!test)
 			{
-				return(e + " does not exist");
+				return(String.valueOf(e.cin) + " does not exist");
 			}
 			else
 			{
